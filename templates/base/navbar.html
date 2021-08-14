@@ -1,0 +1,12 @@
+{% load static %}
+
+<nav>
+	<a class="logo" href={% url 'home' %}><img src="{% static "base/logo.svg" %}"/></a>
+	<div class='search'>
+		<span class="iconify" data-icon="fluent:search-24-filled" data-inline="false"></span>
+		<input type="text" name="search" placeholder="Search for resources">
+	</div>
+	<div class="signin-container">
+		<a class="btn-nav" href='{% url 'login' %}'>Sign In</a>
+	</div>
+</nav>

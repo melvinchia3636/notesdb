@@ -1,0 +1,54 @@
+{% extends "base/base.html"%}
+{% load static %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static "registration/main.css" %}">
+<div class="login-wrapper">
+	<div class="form-container">
+		<form action="{{ app_path }}" method="post" id="login-form" autocomplete="off">
+			{% csrf_token %}
+			<div class="form-row">
+				<label for="id_username">Username</label>
+				<div class="form-input">
+					<span class="iconify" data-icon="carbon:user" data-inline="false"></span>
+					<input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="off" maxlength="150" required="" id="id_username">
+				</div>
+			</div>
+			<div class="form-row">
+				<label for="id_password">Password</label>
+				<div class="form-input">
+					<span class="iconify" data-icon="carbon:password" data-inline="false"></span>
+					<input type="text" style="display:none;">
+					<input type="password" name="password" autocomplete="off" list="autocompleteOff" required="" id="id_password">
+				</div>
+			</div>
+			{% url 'password_reset' as password_reset_url %}
+			{% if password_reset_url %}
+			<div class="password-reset-link">
+				<a href="{{ password_reset_url }}">Forgot password?</a>
+			</div>
+			{% endif %}
+			<div class="submit-row">
+				<input type="submit" value="Login">
+			</div>
+		</form>
+		<div class="alt-login-method">or connect with</div>
+		<div class="service-container">
+			<a><span class="iconify" data-icon="logos-google-icon" data-inline="false"></span></a>
+			<a><span class="iconify" data-icon="logos:facebook" data-inline="false"></span></a>
+			<a><span class="iconify" data-icon="logos:twitter" data-inline="false"></span></a>
+			<a><span class="iconify" data-icon="logos-github-icon" data-inline="false"></span></a>
+		</div>
+		<div class='signup-link'>
+			<a>Don't have an account?</a>
+		</div>
+	</div>
+	<div class="decor-container">
+		<img src="{% static 'registration/login.svg' %}">
+		<img id='box-1' src="{% static 'registration/box.svg' %}"/>
+		<img id='box-2' src="{% static 'registration/box.svg' %}"/>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+$main_c: #FF6231;
+$bg_c: #F6F5F7;
+$active_c: #FF531D;
+$content_c: #525252;
+
+.content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+
+	& img {
+		width: 45%
+	}
+
+	& h1 {
+		font-size: 3rem;
+		margin-top: -4rem;
+		font-weight: 500;
+		color: $main_c
+	}
+
+	& p {
+		margin-top: -1em;
+		font-size: 1.2rem;
+		text-align: center;
+		width: 60%;
+		color: $content_c;
+
+		& a {
+			font-weight: 600;
+			color: $main_c
+		}
+	}
+
+	.goback-btn {
+		font-weight: 600;
+		color: $main_c;
+		font-size: 1.4rem;
+		margin-top: 1rem
+	}
+}

@@ -1,0 +1,1 @@
+from codeblog_learning.wsgi import application

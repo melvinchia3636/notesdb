@@ -1,0 +1,244 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+$main_c: #FF6231;
+$bg_c: #F6F5F7;
+$active_c: #FF531D;
+$content_c: #525252;
+
+@keyframes sidebarHover {
+	0% {
+		background-position: -400px 0%;
+		box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.0);
+	}
+
+	100% {
+		background-position: 0 0%;
+		box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+	}
+}
+
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	background-color: $bg_c;
+
+	& * {
+		font-family: "Poppins", sans-serif;
+	}
+}
+
+:-webkit-any-link {
+	text-decoration: none !important
+}
+
+input, input:is(:active, :focus) {
+	border: none;
+	outline: none;
+}
+
+a:visited {
+	color: $main_c
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+  transition: background-color 99999s ease-in-out 0s;
+}
+
+::placeholder {
+	color: $main_c;
+}
+
+main {
+	display: flex
+}
+
+nav {
+	width: calc(100% - 5rem);
+	height: 60px;
+	display: grid;
+	grid-template-columns: 25% 50% 25%;
+	justify-content: space-between;
+	align-items: center;
+	padding: 1rem 3rem 1rem 2rem;
+
+	& .logo img {
+		max-height: 60px
+	}
+
+	& .search {
+		background: rgb(240, 240, 240);
+		display: flex;
+		align-items: center;
+		border-radius: 100px;
+		padding: .6rem 1rem;
+		padding-bottom: .7rem;
+
+		& svg {
+			margin-right: 1rem;
+			width: 24px;
+			height: 24px;
+			color: $main_c
+		}
+
+		& input {
+			width: 100%;
+			flex-shrink: 9999;
+			margin: 0;
+			padding: 0;
+			border: none;
+			background: none;
+			font-size: 1.2rem;
+			color: $content_c;
+			font-weight: 500
+		}
+	}
+
+	& .signin-container {
+		display: flex;
+		justify-content: flex-end;
+		white-space: nowrap;
+
+		& .btn-nav {
+			color: $main_c;
+			font-size: 1.4rem;
+			font-weight: 600;
+			text-align: right;
+			display: inline;
+			width: min-content;
+			padding: .4rem 0;
+			border-radius: 50px;
+			cursor: pointer;
+			transition: .2s;
+			position: relative;
+
+			&:before {
+				content: "";
+				position: absolute;
+				bottom: 5px;
+				border-radius: 5px;
+				left: 0;
+				width: 0%;
+				height: 3px;
+				background-color: $main_c;
+				transition: .3s
+			}
+	
+			&:hover:before {
+				width: 100%
+			}
+		}
+	}
+}
+
+.sidebar {
+	background: $main_c;
+	width: 350px;
+	height: calc(100vh - 185px);
+	margin-top: .8rem;
+	border-top-right-radius: 100px;
+	box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+	padding: 2.5rem 0;
+
+	& .sidebar-item {
+		display: flex;
+		flex-direction: column;
+		margin-top: 2rem;
+
+		& > * {
+			padding: 1.4rem 2rem;
+			font-size: 1.2rem;
+			font-weight: 400;
+			color: $bg_c;
+			display: flex;
+			align-items: center;
+			position: relative;
+			cursor: pointer;
+
+			&.active {
+				background: $active_c;
+				box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+				border-radius: 0px 50px 50px 0px;
+				position: relative;
+				cursor: pointer;
+				
+				&:before {
+					content: "";
+					position: absolute;
+					background: $bg_c;
+					width: 4px;
+					height: 70%;
+					top: 50%;
+					left: 0;
+					transform: translateY(-50%);
+				}
+			}
+
+			&:before {
+				content: "";
+				position: absolute;
+				background: $bg_c;
+				width: 4px;
+				height: 0;
+				top: 50%;
+				left: 0;
+				transform: translateY(-50%);
+				transition: .3s
+			}
+
+			&:hover {
+				&:before {
+					height: 70%
+				}
+			}
+
+			& svg {
+				width: 24px;
+				height: 24px;
+				margin-right: 1rem;
+				stroke: $bg_c;
+				stroke-width: .4px
+			}
+		}
+	}
+
+	& p {
+		color: #ffb6a0;
+		font-size: .9rem;
+		margin-left: 2rem;
+		margin-top: 4rem
+	}
+}
+
+.content {
+	padding: 0 4rem;
+	width: 100%;
+	height: 70vh;
+	flex-shrink: 9999;
+
+	& .title {
+		& h1 {
+			color: $content_c;
+			font-weight: 500;
+			font-size: 2.4rem;
+			margin-bottom: 0
+		}
+
+		& div {
+			width: 40px;
+			height: 5px;
+			border-radius: 5px;
+			background: $main_c
+		}
+	}
+}
+	
