@@ -7,7 +7,7 @@ SECRET_KEY = 'django-insecure-%x7nmk*30ix*%8)4n9t-_7^&$!1hcj#!5@^5%+7luq6!93b*98
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "localhost:9595", "notesdb.thecodeblog.net"]
+ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -16,14 +16,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_cleanup.apps.CleanupConfig',
 
-    'home.apps.HomeConfig',
     'statistic.apps.StatisticConfig',
     'recent.apps.RecentConfig',
     'starred.apps.StarredConfig',
     'categories.apps.CategoriesConfig',
     'download.apps.DownloadConfig',
-    'my_contributions.apps.MyContributionsConfig',
+    'profile.apps.ProfileConfig',
+    'database.apps.DatabaseConfig'
 ]
 
 MIDDLEWARE = [
@@ -100,4 +101,5 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = '/home'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'

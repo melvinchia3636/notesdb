@@ -1,0 +1,41 @@
+{% extends "base/base.html" %}
+
+{% block title %}{{note.name}}{% endblock %}
+{% block content %}
+<div class="canvas-container">
+</div>
+<script src="https://unpkg.com/pdfjs-dist@2.9.359/build/pdf.min.js"></script>
+<script>
+	pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://unpkg.com/pdfjs-dist@2.9.359/build/pdf.worker.min.js';
+	const loadingTask = pdfjsLib.getDocument("{{note.file.url}}")
+	const container = document.querySelector('.canvas-container')
+	loadingTask.promise.then(function(pdf) {
+		console.log(pdf)
+		const pgcount = pdf.numPages
+		for (let pageNumber=1; pageNumber<=pgcount; pageNumber++) {
+			container.innerHTML+=`<canvas id="page${pageNumber}"></canvas>`
+			pdf.getPage(pageNumber).then(function(page) {
+				console.log('Page loaded');
+				
+				var scale = 1.8;
+				var viewport = page.getViewport({scale: scale});
+				
+				var canvas = container.querySelector("#page"+pageNumber);
+				var context = canvas.getContext('2d');
+				canvas.height = viewport.height;
+				canvas.width = viewport.width;
+
+				// Render PDF page into canvas context
+				var renderContext = {
+				canvasContext: context,
+				viewport: viewport
+				};
+				var renderTask = page.render(renderContext);
+				renderTask.promise.then(function () {
+				console.log('Page rendered');
+				});
+			})
+		}
+	});
+</script>
+{% endblock %}
