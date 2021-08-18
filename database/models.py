@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.fields.related import ForeignKey
+from django.core.validators import FileExtensionValidator
 import uuid
 
 def notes_path(instance, filename):
@@ -28,7 +28,7 @@ class Note(models.Model):
 	grade = models.ForeignKey(to="Grade", related_name="notes", on_delete=models.SET_NULL, null=True)
 	author = models.ForeignKey(to=User, related_name="notes", on_delete=models.SET_NULL, null=True)
 	published = models.DateTimeField(auto_now_add=True)
-	file = models.FileField(upload_to=notes_path)
+	file = models.FileField(upload_to=notes_path, validators=[FileExtensionValidator(['pdf'])])
 
 	def __str__(self):
 		return self.name

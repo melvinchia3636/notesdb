@@ -2,47 +2,18 @@
 
 {% block title %}Recent{% endblock %}
 {% block content %}
-	<div class="note-list">
-		{% for item in items %}
-			<a class="note-item" href="/view/{{item.subject.id}}/{{item.id}}">
-				<div class="details">
-					<div>
-						<h2 class="name">{{item.name}}</h2>
-						<p class="subject">{{item.subject.name}}</p>
-						<p class="meta">{{item.published|date:'d b Y'}} by {{item.author.first_name}}</p>
-					</div>
-					<div class="button-list">
-						<button><span class="iconify" data-icon="heroicons-outline:heart"></span></button>
-						<button><span class="iconify" data-icon="heroicons-outline:document-download"></span></button>
-						<button><span class="iconify" data-icon="heroicons-outline:share"></span></button>
-					</div>
-				</div>
-				<div class="thumbnail" data-src="{{item.file.url}}">
-					<canvas id="thumb1"></canvas>
-					<canvas id="thumb2"></canvas>
-				</div>
-			</a>
-		{% endfor %}
-	</div>
-	<script src="https://unpkg.com/smooth-scrollbar@8.6.3/dist/smooth-scrollbar.js"></script>
-	<script src="https://unpkg.com/pdfjs-dist@2.9.359/build/pdf.min.js"></script>
-	<script src="https://code.iconify.design/2/2.0.3/iconify.min.js"></script>
+	{% include 'base/note-list.html' %}
 	<script>
-		window.onload = () => {
-			Scrollbar.init(document.querySelector('.note-list'), {
-				alwaysShowTracks: true
-			});
-		}
+		const scrolbar = Scrollbar.init(document.querySelector('.note-list'), {
+			alwaysShowTracks: true
+		});
 		document.addEventListener('contextmenu', event => event.preventDefault());
 		pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://unpkg.com/pdfjs-dist@2.9.359/build/pdf.worker.min.js';
 		document.querySelectorAll('.thumbnail').forEach(e => {
 			const loadingTask = pdfjsLib.getDocument(e.dataset.src)
 			loadingTask.promise.then(function(pdf) {
-				console.log(pdf)
 				for (let pageNumber=1; pageNumber<=2; pageNumber++) {
 					pdf.getPage(pageNumber).then(function(page) {
-						console.log('Page loaded');
-						
 						var scale = .2;
 						var viewport = page.getViewport({scale: scale});
 		
@@ -51,14 +22,13 @@
 						canvas.height = viewport.height;
 						canvas.width = viewport.width;
 		
-						// Render PDF page into canvas context
 						var renderContext = {
 						canvasContext: context,
 						viewport: viewport
 						};
 						var renderTask = page.render(renderContext);
 						renderTask.promise.then(function () {
-						console.log('Page rendered');
+							scrollbar.update()
 						});
 					})
 				}

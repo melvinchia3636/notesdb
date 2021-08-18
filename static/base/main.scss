@@ -281,7 +281,9 @@ nav {
 		& .scroll-content {
 			display: grid;
 			gap: 1rem;
-			margin-right: .6rem
+			margin-right: .6rem;
+			padding-left: 3px;
+			padding-bottom: 6px
 		}
 	}
 
@@ -355,10 +357,12 @@ nav {
 
 .categories {
 	margin-top: 2rem;
+	overflow-y: auto;
+	max-height: calc(100% - 60px);
 
 	& h2 {
 		color: $main_c;
-		font-size: 1.8rem;
+		font-size: 1.6rem;
 		font-weight: 600;
 
 		&:not(:first-child) {
@@ -369,15 +373,20 @@ nav {
 	& .folder {
 		display: inline-block;
 
+		&:hover div, &:hover div::after {
+			background: darken($main_c, 5) !important;
+		}
+
 		&-list {
-			display: flex;
-			flex-wrap: wrap;
-			gap: 2.6rem;
-			margin-top: 2rem
+			display: grid;
+			grid-template-columns: repeat(auto-fit, 150px);
+			grid-gap: 2rem;
+			margin-top: 1.6rem
 		}
 
 		& div {
 			background: $main_c;
+			transition: 0.2s;
 		}
 
 		& div:first-child {
@@ -394,7 +403,8 @@ nav {
 				position: absolute;
 				right: -21px;
 				top: 9px;
-				transform: rotate(45deg)
+				transform: rotate(45deg);
+				transition: 0.2s;
 			}
 		}
 

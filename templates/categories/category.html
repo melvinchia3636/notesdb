@@ -1,0 +1,59 @@
+{% extends "base/base.html" %}
+
+{% block title %}{{type_item.name}}{% endblock %}
+{% block content %}
+{% include 'base/note-list.html' %}
+<script>
+	const scrollbar = Scrollbar.init(document.querySelector('.note-list'), {
+		alwaysShowTracks: true
+	});
+	document.addEventListener('contextmenu', event => event.preventDefault());
+	pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://unpkg.com/pdfjs-dist@2.9.359/build/pdf.worker.min.js';
+	document.querySelectorAll('.thumbnail').forEach(e => {
+		const loadingTask = pdfjsLib.getDocument(e.dataset.src)
+		loadingTask.promise.then(function(pdf) {
+			console.log(pdf)
+			for (let pageNumber=1; pageNumber<=2; pageNumber++) {
+				pdf.getPage(pageNumber).then(function(page) {
+					
+					var scale = .2;
+					var viewport = page.getViewport({scale: scale});
+	
+					var canvas = e.querySelector("#thumb"+pageNumber);
+					var context = canvas.getContext('2d');
+					canvas.height = viewport.height;
+					canvas.width = viewport.width;
+
+					var renderContext = {
+					canvasContext: context,
+					viewport: viewport
+					};
+					var renderTask = page.render(renderContext);
+					renderTask.promise.then(function () {
+						scrollbar.update()
+					});
+				})
+			}
+		});
+	});
+	/*(function () {
+		(function a() {
+			try {
+				(function b(i) {
+					if (('' + (i / i)).length !== 1 || i % 20 === 0) {
+						(function () { }).constructor('debugger')()
+					} else {
+						debugger
+					}
+					b(++i)
+				}
+				)(0)
+			} catch (e) {
+				setTimeout(a, 5000)
+			}
+		}
+		)()
+	}
+	)();*/
+</script>
+{% endblock %}

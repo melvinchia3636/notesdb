@@ -6,19 +6,19 @@
 	<h2>Subjects</h2>
 	<div class="folder-list">
 		{% for subject in subjects %}
-		<div class='folder'>
+		<a class='folder' href="./subject/{{subject.id}}">
 			<div></div>
 			<div>{{ subject.short_name }}</div>
-		</div>
+		</a>
 		{% endfor %}
 	</div>
 	<h2>Grades</h2>
 	<div class="folder-list">
 		{% for grade in grades %}
-		<div class='folder'>
+		<a class='folder' href="./grade/{{grade.id}}">
 			<div></div>
 			<div>{{ grade.name }}</div>
-		</div>
+		</a>
 		{% endfor %}
 	</div>
 </div>

@@ -6,16 +6,17 @@
 </div>
 <script src="https://unpkg.com/pdfjs-dist@2.9.359/build/pdf.min.js"></script>
 <script>
+	const scrollbar = Scrollbar.init(document.querySelector('.canvas-container'), {
+		alwaysShowTracks: true
+	});
 	pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://unpkg.com/pdfjs-dist@2.9.359/build/pdf.worker.min.js';
 	const loadingTask = pdfjsLib.getDocument("{{note.file.url}}")
-	const container = document.querySelector('.canvas-container')
+	const container = document.querySelector('.canvas-container .scroll-content')
 	loadingTask.promise.then(function(pdf) {
-		console.log(pdf)
 		const pgcount = pdf.numPages
 		for (let pageNumber=1; pageNumber<=pgcount; pageNumber++) {
 			container.innerHTML+=`<canvas id="page${pageNumber}"></canvas>`
 			pdf.getPage(pageNumber).then(function(page) {
-				console.log('Page loaded');
 				
 				var scale = 1.8;
 				var viewport = page.getViewport({scale: scale});
@@ -32,10 +33,10 @@
 				};
 				var renderTask = page.render(renderContext);
 				renderTask.promise.then(function () {
-				console.log('Page rendered');
+					scrollbar.update()
 				});
 			})
-		}
+		};
 	});
 </script>
 {% endblock %}
