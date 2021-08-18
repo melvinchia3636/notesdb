@@ -6,7 +6,7 @@
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'base/404.css' %}"/>
 <img src="{% static 'base/404.svg' %}"/>
-<h1>Oops! Nothing Here</h1>
+<h1>Oops! Page Not Found</h1>
 <p>Looks like this page never existed in the world.  If you think this is an error, please <a>contact the developer</a>.</p>
-<a class="goback-btn" href="{% url 'home' %}">Go back</a>
+<a class="goback-btn" href="{% url 'recent' %}">Go back</a>
 {% endblock %}
