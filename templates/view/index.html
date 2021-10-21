@@ -18,8 +18,10 @@
 			container.innerHTML+=`<canvas id="page${pageNumber}"></canvas>`
 			pdf.getPage(pageNumber).then(function(page) {
 				
-				var scale = 1.8;
-				var viewport = page.getViewport({scale: scale});
+				var desiredWidth = document.querySelector(".canvas-container .scroll-content").clientWidth - 20;
+				var viewport = page.getViewport({ scale: 1, });
+				var scale = desiredWidth / viewport.width;
+				viewport = page.getViewport({ scale: scale, });
 				
 				var canvas = container.querySelector("#page"+pageNumber);
 				var context = canvas.getContext('2d');

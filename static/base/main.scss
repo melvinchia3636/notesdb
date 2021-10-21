@@ -85,11 +85,11 @@ main {
 nav {
 	width: calc(100% - 5rem);
 	height: 80px;
-	display: grid;
+	display: flex;
+	gap: 6rem;
 	position: sticky;
 	top: 0;
 	left: 0;
-	grid-template-columns: 25% 50% 25%;
 	justify-content: space-between;
 	align-items: center;
 	padding: 1rem 3rem 1rem 2rem;
@@ -107,6 +107,7 @@ nav {
 		border-radius: 100px;
 		padding: .6rem 1rem;
 		padding-bottom: .7rem;
+		width: 100%;
 
 		& svg {
 			margin-right: 1rem;
@@ -128,39 +129,34 @@ nav {
 		}
 	}
 
-	& .signin-container {
-		display: flex;
-		justify-content: flex-end;
+	& .btn-nav {
+		color: $main_c;
+		font-size: 1.4rem;
+		font-weight: 600;
+		text-align: right;
+		display: inline;
+		width: min-content;
+		padding: .4rem 0;
+		border-radius: 50px;
+		cursor: pointer;
+		transition: .2s;
+		position: relative;
 		white-space: nowrap;
 
-		& .btn-nav {
-			color: $main_c;
-			font-size: 1.4rem;
-			font-weight: 600;
-			text-align: right;
-			display: inline;
-			width: min-content;
-			padding: .4rem 0;
-			border-radius: 50px;
-			cursor: pointer;
-			transition: .2s;
-			position: relative;
+		&:before {
+			content: "";
+			position: absolute;
+			bottom: 5px;
+			border-radius: 5px;
+			left: 0;
+			width: 0%;
+			height: 3px;
+			background-color: $main_c;
+			transition: .3s
+		}
 
-			&:before {
-				content: "";
-				position: absolute;
-				bottom: 5px;
-				border-radius: 5px;
-				left: 0;
-				width: 0%;
-				height: 3px;
-				background-color: $main_c;
-				transition: .3s
-			}
-	
-			&:hover:before {
-				width: 100%
-			}
+		&:hover:before {
+			width: 100%
 		}
 	}
 }
@@ -248,10 +244,11 @@ nav {
 
 .content {
 	padding: 4rem;
-	padding-top: 2rem;
+	padding-top: 0;
 	width: 100%;
-	height: calc(100vh - 200px);
 	flex-shrink: 9999;
+	display: flex;
+	flex-direction: column;
 
 	& .title {
 		& h1 {
@@ -279,32 +276,38 @@ nav {
 		overflow-x: visible;
 
 		& .scroll-content {
-			display: grid;
-			gap: 1rem;
 			margin-right: .6rem;
+			display: flex;
+			flex-direction: column;
+			padding-right: 1rem;
 			padding-left: 3px;
 			padding-bottom: 6px
 		}
 	}
 
 	&-item {
-		width: calc(100% - 4rem);
+		width: calc(100% - 3.2rem);
 		background: white;
 		border-radius: 10px;
 		padding: 1.6rem;
+		margin-bottom: 1rem;
 		box-shadow: $shadow-default;
-		display: flex;
+		display: grid;
+		grid-template-columns: repeat(2, auto);
 		justify-content: space-between;
+		grid-template-areas: "details thumbnail";
 
 		& .details {
 			display: flex;
 			flex-direction: column;
 			justify-content: space-between;
+			grid-area: details;
 		}
 
 		& .thumbnail {
 			display:  flex;
 			gap: 1rem;
+			grid-area: thumbnail;
 
 			* {
 				box-shadow: $shadow-default
@@ -329,6 +332,7 @@ nav {
 		& .button-list {
 			display: flex;
 			gap: 1.6rem;
+			margin-top: 2rem;
 
 			& * {
 				display: flex;
@@ -353,6 +357,17 @@ nav {
 	margin-top: 2rem;
 	overflow-y: scroll;
 	overflow-x: visible;
+
+	& .scroll-content { 
+		display: flex;
+		flex-wrap: wrap;
+		gap: .6rem;
+		padding-bottom: 1rem;
+
+		& canvas {
+			box-shadow: 0 0 8px rgba(0, 0, 0, .15)
+		}
+	}
 }
 
 .categories {
@@ -419,5 +434,46 @@ nav {
 			font-weight: 600;
 			border-radius: 0px 14px 14px 14px;
 		}
+	}
+}
+
+@media all and (max-width: 1070px) {
+	.note {
+		&-item {
+			grid-template-areas: "thumbnail"
+								"details";
+								
+			& .details {
+				margin-top: 1rem;
+			}
+		}
+	}
+}
+
+@media all and (max-width: 1024px) {
+	nav .search {
+		display: none;
+	}
+}
+
+@media all and (max-width: 670px) {
+	.sidebar {
+		display: none
+	}
+
+	.content {
+		padding: 2rem
+	}
+}
+
+@media all and (max-width: 560px) {
+	.btn-nav {
+		display: none !important
+	}
+}
+
+@media all and (max-width: 400px) {
+	#thumb2 {
+		display: none !important
 	}
 }

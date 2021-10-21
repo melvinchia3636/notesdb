@@ -6,11 +6,9 @@
 		<span class="iconify" data-icon="fluent:search-24-filled" data-inline="false"></span>
 		<input type="text" name="search" placeholder="Search for resources">
 	</div>
-	<div class="signin-container">
-		{% if user.is_authenticated %}
-		<a class="btn-nav" href='{% url 'logout' %}'>Sign Out</a>
-		{% else %}
-		<a class="btn-nav" href='{% url 'login' %}'>Sign In</a>
-		{% endif %}
-	</div>
+	{% if user.is_authenticated %}
+	<a class="btn-nav" href='{% url 'logout' %}'>Sign Out</a>
+	{% else %}
+	<a class="btn-nav" href='{% url 'login' %}'>Sign In</a>
+	{% endif %}
 </nav>

@@ -6,7 +6,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>NotesDB - The Ultimate Note Database</title>
 		<meta name="description" content="The ultimate platform for sharing your study notes, exploring and studying with the communities.">
-		<meta name="viewport" id="viewport" content="width=device-width,user-scalable=yes,initial-scale=1" />
+		<meta name="viewport" id="viewport" content="width=device-width,user-scalable=no,initial-scale=1" />
 		<meta property="og:image" content="{% static 'base/thumbnail.png' %}">
 		<meta property="og:image:type" content="image/png">
 		<meta property="og:image:width" content="1024">
@@ -40,4 +40,7 @@
 			</div>
 		</main>
 	</body>
+	<script>
+		document.querySelector(".content").style.height = window.innerHeight - document.querySelector("nav").clientHeight - 30 + "px"
+	</script>
 </html>
